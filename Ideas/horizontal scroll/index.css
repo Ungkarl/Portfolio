@@ -32,6 +32,14 @@
 }
 .slide:nth-child(3) {
     width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.slide:nth-child(3) img {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
 }
 .char {
     color: #e9e9d8;
@@ -75,7 +83,7 @@
  
 
 body {
-    /* cursor: none; */
+     cursor: none; 
 }
 /* body::-webkit-scrollbar {
     display: none;
