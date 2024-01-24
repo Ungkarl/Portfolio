@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 *{margin: 0;padding: 0;box-sizing: border-box;}
 @font-face {
     font-family: DrukTrial;
@@ -9,7 +10,7 @@
     font-family: 'DrukTrial';
     display: flex;
     flex-wrap: nowrap;
-    width: 400%;
+  
     overflow-x:hidden;
     height: 100vh;
 }
@@ -31,15 +32,75 @@
     text-wrap: nowrap;
 }
 .slide:nth-child(3) {
-    width: 80vw;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-content: center;
+    position: relative;
+    
+}
+.portrait-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 .slide:nth-child(3) img {
-    width: 50%;
-    height: auto;
-    object-fit: contain;
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    /* border:  10px solid #e9e9d8; */
+
+
+    
+    ;
+}
+.slide:nth-child(4) {
+    width: 20px;
+}
+.slide:nth-child(5) {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.info-container {
+    height: calc(100% - 100px);
+    max-width: 1400px;
+    width: 90%;
+    color: #e9e9d8;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+  
+}
+.upper {
+    font-family: DrukTrial;
+    font-size: 90px;
+    text-transform: uppercase;
+    line-height: 70px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.lower {
+    font-family: 'Mulish', sans-serif;
+
+
+}
+.upper {
+    width: 100%;
+    height: 30%;
+    
+}
+.lower {
+    border-top: 1px solid #e9e9d8;
+    height: 50%;
+    padding-top: 10px;
 }
 .char {
     color: #e9e9d8;
@@ -73,7 +134,8 @@
 
   .next-block {
     height: 50vh;
-    background-color: #316e61;
+    background-color: #468578;
+    color: #e9e9d8;
   }
 
 
@@ -89,7 +151,6 @@ body {
     display: none;
 } */
 nav  {
-    
     position: fixed;
     top: 0;
     width: 100%;
@@ -155,6 +216,8 @@ nav ul li:nth-child(2):hover::after {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+    
+    
 
 }
 
@@ -217,6 +280,7 @@ nav ul li:nth-child(2):hover::after {
 
    
 }
+
 
 footer {
     width: 100vw;
@@ -407,14 +471,21 @@ nav ul li:nth-child(2) {
 }
 }
 
-/* Desktop viewport */
+/*Laptop viewport*/
+
+
+
+/* Desktop viewport 1080 */
 @media only screen and (min-width: 1024px) {
+    .slide:nth-child(2) {
+        width: 60vw;
+    }
     .home__title .grid-item:nth-child(1), .home__title .grid-item:nth-child(2) {
-        font-size: 220px;
-        line-height: 180px;
+        font-size: 200px;
+        line-height: 200px;
     }
     .slide:nth-child(2) {
-        font-size: 220px;
+        font-size: 200px;
     }
     .inner-grid {
         font-size: 91px;
@@ -455,8 +526,76 @@ nav ul li:nth-child(2) {
 }
 
 
+/*Desktop*/
+@media only screen and (min-width: 1600px)
+{ 
 
 
-.scrolling-text {
-    width: 150vw;
+    .home__title .grid-item:nth-child(1), .home__title .grid-item:nth-child(2) {
+        font-size: 250px;
+        line-height: 200px;
+    }
+    .slide:nth-child(2) {
+        font-size: 250px;
+    }
+}
+
+
+
+
+
+
+@media only screen and (min-width: 1922px) {
+    .slide:nth-child(2) {
+        width: 60vw;
+    }
+    .home__title .grid-item:nth-child(1), .home__title .grid-item:nth-child(2) {
+        font-size: 330px;
+        line-height: 260px;
+    }
+    .slide:nth-child(2) {
+        font-size: 330px;
+    }
+    .inner-grid {
+        font-size: 91px;
+        line-height: 72px;
+    }
+    .menu__item {
+        width: 70%;
+    }
+    .menu-wrapper{
+        align-items: center;
+    }
+    .menu__line {
+        width: 70%;
+    }
+    nav ul {
+        max-width: 1920px;
+    }
+    footer ul {
+        max-width: 1920px;
+    }
+    nav ul li:nth-child(1) {
+        font-size: 90px;
+    }
+    nav ul li:nth-child(2) {
+        font-size: 28px;
+    }
+    footer ul li:nth-child(1) {
+        display: flex;
+        flex-direction: column;
+        font-size: 22px;
+    }
+    footer ul li ion-icon {
+        font-size: 60px;
+        font-weight: lighter;
+        padding: 5px;
+    }
+    footer ul li:nth-child(2) {
+        border-radius: 50%;
+        border: 1px solid #e9e9d8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

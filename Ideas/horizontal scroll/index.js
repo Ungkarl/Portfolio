@@ -3,6 +3,10 @@ if (window.innerWidth > 768) {
   slide2Text.innerHTML = '<p class="split-text">IS A FRONTEND DEVELOPER.</p>';
 }
 
+if (window.innerWidth > 1024) {
+
+}
+
 gsap.registerPlugin(ScrollTrigger);
 // ScrollTrigger.defaults({
 //   markers: {
@@ -18,6 +22,11 @@ gsap.registerPlugin(ScrollTrigger);
 let followCircle = document.querySelector('.cursor-follower');
 let menuBtn = document.querySelector('.mouse-hover');
 let isMenuBtnHovered = false;
+
+
+
+
+
 
 gsap.set(followCircle, {
     xPercent: -50,
@@ -39,11 +48,29 @@ window.addEventListener("mousemove", (e) => {
             y: e.clientY,
             stagger: 1,
             scale: 1,
-            ease: "elastic.out(1,0.3)"
+            ease: "elastic.out(1,0.4)"
         });
-    }
+    } 
 });
 
+window.addEventListener("scroll", (e) => {
+  if (!isMenuBtnHovered) {
+      gsap.set(followCircle, {
+          xPercent: -50,
+          yPercent: -50,
+          
+      });
+      gsap.to(followCircle, {
+          duration: 1,
+          overwrite: "auto",
+          x: e.clientX,
+          y: e.clientY,
+          stagger: 1,
+          scale: 1,
+          ease: "elastic.out(1,0.4)"
+      });
+  } 
+});
 
 menuBtn.addEventListener('mouseenter', (e) => {
     isMenuBtnHovered = true;
@@ -67,6 +94,7 @@ menuBtn.addEventListener('mouseenter', (e) => {
 
 menuBtn.addEventListener('mouseleave', () => {
     isMenuBtnHovered = false;
+    
 });
 
 
@@ -153,28 +181,37 @@ mWrap.forEach(function (wrap) {
 
 let sections = gsap.utils.toArray(".slide");
 
-// Caclulate toatal width of all .slides
-const totalWidth = sections.reduce(
-  (acc, element) => acc + element.getBoundingClientRect().width,
-  0
-);
-console.warn(totalWidth);
+
 
 const tl = gsap.timeline({
   scrollTrigger: {
-    id: "horizonal",
+    id: "horizontal",
     trigger: ".horizontal-sliders",
     pin: ".main",
     pinSpacing: true,
     scrub: 1,
-    end: "+=2000 bottom" 
+    end: "+=3000 bottom" 
   }
 });
+
+
+const nextBlock = document.querySelector(".next-block");
+
+const totalWidth = sections.reduce(
+  (acc, element) => acc + element.getBoundingClientRect().width,
+  0
+);
 tl.to(sections, {
   // xPercent: -90 * (sections.length - 1),
   x: () => -(totalWidth - window.innerWidth), 
   ease: "none"
 });
+
+
+
+
+
+
 
 
 
@@ -200,5 +237,11 @@ chars.forEach((char, index) => {
     }
   });
 });
+
+
+
+
+
+
 
 
