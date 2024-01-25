@@ -1,12 +1,3 @@
-if (window.innerWidth > 768) {
-  const slide2Text = document.querySelector(".slide-2");
-  slide2Text.innerHTML = '<p class="split-text">IS A FRONTEND DEVELOPER.</p>';
-}
-
-if (window.innerWidth > 1024) {
-
-}
-
 gsap.registerPlugin(ScrollTrigger);
 // ScrollTrigger.defaults({
 //   markers: {
@@ -16,6 +7,135 @@ gsap.registerPlugin(ScrollTrigger);
 //     indent: 10
 //   }
 // });
+
+if (window.innerWidth > 768) {
+  const slide2Text = document.querySelector(".slide-2");
+  slide2Text.innerHTML = '<p class="split-text">IS A FRONTEND DEVELOPER.</p>';
+}
+
+const sections = gsap.utils.toArray(".slide");
+const lastSection = sections[sections.length - 1]; 
+const horizontalSliderOptions = {
+  trigger: ".horizontal-sliders",
+  pin: ".main",
+  pinSpacing: true,
+  scrub: -1,
+  
+  
+};
+
+
+
+
+
+
+
+
+let tl;
+
+if (window.innerWidth > 1600) {
+  tl = gsap.timeline({
+    onStart: function(){ console.log('play') },
+        onComplete: function(){ console.log('finish') },
+    scrollTrigger: { ...horizontalSliderOptions, end: "+=7000 bottom" }, 
+    
+    
+  });
+} else if (window.innerWidth > 1024) {
+  tl = gsap.timeline({
+    onStart: function(){ console.log('play') },
+        onComplete: function(){ console.log('finish') },
+    scrollTrigger: { ...horizontalSliderOptions, end: "+=5000 bottom" },
+    
+  });
+} else if (window.innerWidth > 764) {
+  tl = gsap.timeline({
+    onStart: function(){ console.log('play') },
+        onComplete: function(){ console.log('finish') },
+    scrollTrigger: { ...horizontalSliderOptions, end: "+=4000 bottom" },
+    
+  })
+} else {
+  tl = gsap.timeline({
+    scrollTrigger: { ...horizontalSliderOptions, end: "+=3000 bottom" },
+    
+  });
+}
+
+const totalWidth = sections.reduce(
+  (acc, element) => acc + element.getBoundingClientRect().width,
+  0
+);
+
+tl.to(sections, {
+  x: () => -(totalWidth - window.innerWidth),
+  ease: "none",
+})
+
+
+
+
+const splitText = new SplitType(".split-text", { types: "chars" });
+const chars = splitText.chars;
+
+chars.forEach((char, index) => {
+  gsap.from(char, {
+    y: index % 2 === 0 ? 300 : -300,
+    
+   
+    opacity: 0,
+    ease: "power1.inOut",
+    scrollTrigger: {
+      trigger: char,
+      start: () => `top left-=${index * 90}`,
+      end: "top bottom",
+      scrub: 0,
+      horizontal: true,
+      containerAnimation: tl,
+      start: "left right-=30%",
+      end: "right right-=50%",
+    },
+  });
+});
+
+
+
+const expandingCircle = document.querySelector('.expanding-circle') 
+const nextBlock = document.querySelector('.next-block')
+gsap.set(expandingCircle, {
+  scale: 0
+})
+gsap.to(expandingCircle, {
+  scale: 2.5,
+  scrollTrigger: {
+    trigger: nextBlock,
+    start: "top top",
+    end: "bottom bottom",
+    scrub: 0,
+    markers: {
+      startColor: "purple",
+      endColor: "purple",
+      fontSize: "22px",
+      indent: 10
+    }
+  },
+  
+  }
+
+
+)
+
+
+  
+
+
+
+
+
+
+
+
+
 
 
 
@@ -129,8 +249,8 @@ function parallaxIt(e, wrap, movement = 1) {
     var relX = e.pageX - boundingRect.left;
     var relY = e.pageY - boundingRect.top;
   
-    var maxX = boundingRect.width / 2 * 0.2; // Limit to 20% from center in each side
-    var maxY = boundingRect.height / 2 * 0.5; // Limit to 50% towards top and bottom
+    var maxX = boundingRect.width / 2 * 0.2; 
+    var maxY = boundingRect.height / 2 * 0.5; 
   
     var restrictedX = Math.max(-maxX, Math.min(maxX, (relX - boundingRect.width / 2) * movement));
     var restrictedY = Math.max(-maxY, Math.min(maxY, (relY - boundingRect.height / 2 - scrollTop) * movement));
@@ -158,90 +278,3 @@ mWrap.forEach(function (wrap) {
     });
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-let sections = gsap.utils.toArray(".slide");
-
-
-
-const tl = gsap.timeline({
-  scrollTrigger: {
-    id: "horizontal",
-    trigger: ".horizontal-sliders",
-    pin: ".main",
-    pinSpacing: true,
-    scrub: 1,
-    end: "+=3000 bottom" 
-  }
-});
-
-
-const nextBlock = document.querySelector(".next-block");
-
-const totalWidth = sections.reduce(
-  (acc, element) => acc + element.getBoundingClientRect().width,
-  0
-);
-tl.to(sections, {
-  // xPercent: -90 * (sections.length - 1),
-  x: () => -(totalWidth - window.innerWidth), 
-  ease: "none"
-});
-
-
-
-
-
-
-
-
-
-const splitText = new SplitType(".split-text", { types: "chars" });
-const chars = splitText.chars;
-
-chars.forEach((char, index) => {
-  gsap.from(char, {
-    y: index % 2 === 0 ? 100 : -100,
-    x: -30,
-    rotate: index % 2 === 0 ? 50 : -50,
-    opacity: 0,
-    ease: "power1.inOut",
-    scrollTrigger: {
-      trigger: char,
-      start: () => `top left-=${index * 90}`,
-      end: "top bottom",
-      scrub: 1,
-      horizontal: true, 
-      containerAnimation: tl, 
-      start: "left right-=10%", 
-      end: "right right-=10%"
-    }
-  });
-});
-
-
-
-
-
-
-
-
