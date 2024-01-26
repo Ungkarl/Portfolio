@@ -24,6 +24,11 @@ const horizontalSliderOptions = {
   
 };
 
+const expandingCircle = document.querySelector('.expanding-circle') 
+const nextBlock = document.querySelector('.next-block')
+const spotlightText1 = document.querySelector('.skills-spotlight-text p:nth-child(1)')
+const spotlightText2 = document.querySelector('.skills-spotlight-text p:nth-child(2)')
+
 
 
 
@@ -80,7 +85,7 @@ const chars = splitText.chars;
 
 chars.forEach((char, index) => {
   gsap.from(char, {
-    y: index % 2 === 0 ? 300 : -300,
+    y: index % 2 === 0 ? 200 : -200,
     
    
     opacity: 0,
@@ -100,13 +105,34 @@ chars.forEach((char, index) => {
 
 
 
-const expandingCircle = document.querySelector('.expanding-circle') 
-const nextBlock = document.querySelector('.next-block')
+
+
+console.log(spotlightText1)
 gsap.set(expandingCircle, {
   scale: 0
 })
-gsap.to(expandingCircle, {
-  scale: 2.5,
+
+gsap.from(spotlightText1, {
+x: '-100%',
+scrollTrigger: {
+  trigger: nextBlock,
+  start: "top top",
+  end: "bottom bottom",
+  scrub: 0,
+  markers: {
+    startColor: "purple",
+    endColor: "purple",
+    fontSize: "22px",
+    indent: 10
+  }
+},
+
+
+
+})
+
+gsap.from(spotlightText2, {
+  x: '100%',
   scrollTrigger: {
     trigger: nextBlock,
     start: "top top",
@@ -119,11 +145,69 @@ gsap.to(expandingCircle, {
       indent: 10
     }
   },
+})
+
+
+const expandingCircleOptions = {
+  trigger: nextBlock,
+  start: "top top",
+  end: "bottom bottom",
+  scrub: 0,
+}
+
+
+if (window.innerWidth > 1600) {
+  gsap.to(expandingCircle, {
+    scale: 2.5,
+    scrollTrigger: {
+      ...expandingCircleOptions,
+      
+    },
+    
+    }
   
-  }
+  
+  )
 
-
-)
+} else if (window.innerWidth > 1024) {
+  gsap.to(expandingCircle, {
+    scale: 2.5,
+    scrollTrigger: {
+      ...expandingCircleOptions,
+      
+    },
+    
+    }
+  
+  
+  )
+  
+} else if (window.innerWidth > 764) {
+  gsap.to(expandingCircle, {
+    scale: 4,
+    scrollTrigger: {
+      ...expandingCircleOptions,
+      
+    },
+    
+    }
+  
+  
+  )
+  
+} else {
+  gsap.to(expandingCircle, {
+    scale: 5,
+    scrollTrigger: {
+      ...expandingCircleOptions,
+      
+    },
+    
+    }
+  
+  
+  )
+}
 
 
   
