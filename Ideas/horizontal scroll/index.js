@@ -8,13 +8,41 @@ gsap.registerPlugin(ScrollTrigger);
 //   }
 // });
 
+const heroTitle = document.querySelectorAll('.home__title span p')
+console.log(heroTitle)
+window.addEventListener('DOMContentLoaded', () => {
+  heroTitle.forEach((title, index) => {
+    gsap.from(title, {
+      y: "100%",
+      duration: 1,
+      ease: "power4.inOut",
+      delay: index * 0.2, 
+    });
+  });
+});
+
+
+const infoTitle = document.querySelector('.upper p')
+const infoDesc = document.querySelector('.lower p')
+
+
+
+
+
 if (window.innerWidth > 768) {
   const slide2Text = document.querySelector(".slide-2");
   slide2Text.innerHTML = '<p class="split-text">IS A FRONTEND DEVELOPER.</p>';
 }
 
 const sections = gsap.utils.toArray(".slide");
-const lastSection = sections[sections.length - 1]; 
+const skillsSlides = gsap.utils.toArray(".skills-slide")
+
+const skillsSlidesOptions = {
+  trigger: ".horizontal-sliders-2",
+  pin: ".main-2",
+  pinSpacing: true,
+  scrub: -1,
+}
 const horizontalSliderOptions = {
   trigger: ".horizontal-sliders",
   pin: ".main",
@@ -23,6 +51,11 @@ const horizontalSliderOptions = {
   
   
 };
+
+const totalWidth = sections.reduce(
+  (acc, element) => acc + element.getBoundingClientRect().width,
+  0
+);
 
 const expandingCircle = document.querySelector('.expanding-circle') 
 const nextBlock = document.querySelector('.next-block')
@@ -37,6 +70,7 @@ const spotlightText2 = document.querySelector('.skills-spotlight-text p:nth-chil
 
 
 let tl;
+let tl2;
 
 if (window.innerWidth > 1600) {
   tl = gsap.timeline({
@@ -46,6 +80,11 @@ if (window.innerWidth > 1600) {
     
     
   });
+  tl2 = gsap.timeline({
+    scrollTrigger: {  ...skillsSlidesOptions, end: "+=5000"}
+
+  })
+
 } else if (window.innerWidth > 1024) {
   tl = gsap.timeline({
     onStart: function(){ console.log('play') },
@@ -53,6 +92,10 @@ if (window.innerWidth > 1600) {
     scrollTrigger: { ...horizontalSliderOptions, end: "+=5000 bottom" },
     
   });
+  tl2 = gsap.timeline({
+    scrollTrigger: {  ...skillsSlidesOptions, end: "+=5000"}
+
+  })
 } else if (window.innerWidth > 764) {
   tl = gsap.timeline({
     onStart: function(){ console.log('play') },
@@ -60,23 +103,57 @@ if (window.innerWidth > 1600) {
     scrollTrigger: { ...horizontalSliderOptions, end: "+=4000 bottom" },
     
   })
+  tl2 = gsap.timeline({
+    scrollTrigger: {  ...skillsSlidesOptions, end: "+=5000"}
+
+  })
 } else {
   tl = gsap.timeline({
     scrollTrigger: { ...horizontalSliderOptions, end: "+=3000 bottom" },
     
   });
+  tl2 = gsap.timeline({
+    scrollTrigger: {  ...skillsSlidesOptions, end: "+=5000"}
+
+  })
 }
 
-const totalWidth = sections.reduce(
+const skillsSlidesWidth = skillsSlides.reduce(
   (acc, element) => acc + element.getBoundingClientRect().width,
   0
 );
+
+tl2.to(skillsSlides, {
+  x: () => -(skillsSlidesWidth - window.innerWidth),
+  ease: "none",
+})
+
+
+
+
+
 
 tl.to(sections, {
   x: () => -(totalWidth - window.innerWidth),
   ease: "none",
 })
+gsap.set(heroTitle, {
+  opacity: 0,
+})
 
+gsap.to(heroTitle, {
+  y: "100%",
+  opacity: 1,
+  duration: 1,
+  ease: "power4.inOut",
+  scrollTrigger: {
+    trigger: heroTitle,
+    end: "+=5000",
+  },
+  })
+
+
+  
 
 
 
@@ -103,6 +180,43 @@ chars.forEach((char, index) => {
   });
 });
 
+gsap.from(infoTitle, {
+  y: '100%',
+  ease: "power2.inOut",
+  opacity: 0,
+  duration: 0.6,
+  scrollTrigger: {
+    trigger: infoTitle,
+    start: () => `top left-=90`,
+    
+    horizontal: true,
+    containerAnimation: tl,
+    start: "left right-=1%",
+
+
+  }
+
+
+})
+gsap.from(infoDesc, {
+  y: '100%',
+  opacity: 0,
+  ease: "power2.inOut",
+  duration: 0.6,
+  scrollTrigger: {
+    trigger: infoDesc,
+    start: () => `top left-=90`,
+    
+    horizontal: true,
+    containerAnimation: tl,
+    start: "left right-=1%",
+
+
+  }
+
+
+})
+
 
 
 
@@ -119,12 +233,12 @@ scrollTrigger: {
   start: "top top",
   end: "bottom bottom",
   scrub: 0,
-  markers: {
-    startColor: "purple",
-    endColor: "purple",
-    fontSize: "22px",
-    indent: 10
-  }
+  // markers: {
+  //   startColor: "purple",
+  //   endColor: "purple",
+  //   fontSize: "22px",
+  //   indent: 10
+  // }
 },
 
 
