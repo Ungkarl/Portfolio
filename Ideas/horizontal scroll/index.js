@@ -360,7 +360,7 @@ window.addEventListener("mousemove", (e) => {
             
         });
         gsap.to(followCircle, {
-            duration: 1,
+            duration: 0.2,
             overwrite: "auto",
             x: e.clientX,
             y: e.clientY,
@@ -433,7 +433,7 @@ openMenuBtn.addEventListener('click', () => {
         menu.classList.add('hide')
         listExchangeBtn.innerHTML = 'Menu';
         listExchangeBtn.classList.toggle('opened');
-       
+
     }
 
   
@@ -476,3 +476,72 @@ mWrap.forEach(function (wrap) {
     });
   });
 });
+
+
+let currentScroll = 0;
+let isScrollingDown = true;
+
+let tween = gsap.to(".marquee__part", {
+  xPercent: -100,
+  repeat: -1,
+  duration: 5, 
+  ease: "linear",
+}).totalProgress(0.5)
+
+
+
+
+const pills = document.querySelectorAll('.pill');
+
+pills.forEach((pill) => {
+  gsap.to(pill, {
+    scale: 1.2,
+    ease: "power1.inOut",
+    scrollTrigger: {
+      trigger: pill,
+      scrub: 0,
+      horizontal: true,
+      containerAnimation: tl2,
+      start: "left right-=30%",
+      end: "right right-=30%",
+      markers: {
+        startColor: "red",
+        endColor: "red",
+        fontSize: "22px",
+        indent: 10
+      }
+    },
+    
+    })
+
+  })
+
+  pills.forEach((pill) => {
+        pill.addEventListener('mouseenter', () => {
+          gsap.to(followCircle, {
+            duration: 0.1,
+            backgroundColor: '#fff',
+            ease: "power1.inOut",
+          })
+
+
+        })
+      
+      })
+
+      pills.forEach((pill) => {
+        pill.addEventListener('mouseleave', () => {
+          gsap.set(followCircle, {
+            duration: 0.1,
+            backgroundColor: '#000',
+            ease: "power1.inOut",
+          })
+
+
+        })
+      
+      })
+  
+  
+
+
