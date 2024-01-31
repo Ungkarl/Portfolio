@@ -252,12 +252,6 @@ gsap.from(spotlightText2, {
     start: "top top",
     end: "bottom bottom",
     scrub: 0,
-    markers: {
-      startColor: "purple",
-      endColor: "purple",
-      fontSize: "22px",
-      indent: 10
-    }
   },
 })
 
@@ -504,12 +498,6 @@ pills.forEach((pill) => {
       containerAnimation: tl2,
       start: "left right-=30%",
       end: "right right-=30%",
-      markers: {
-        startColor: "red",
-        endColor: "red",
-        fontSize: "22px",
-        indent: 10
-      }
     },
     
     })
@@ -541,7 +529,90 @@ pills.forEach((pill) => {
         })
       
       })
+
+
+      const revealTexts = document.querySelectorAll('.text-sticky p')
+      const revealTextContainer = document.querySelector('.text-reveal-container')
+      
+      revealTexts.forEach((text) => {
+
+        gsap.from(text, {
+          y: '100%',
+          opacity: 0,
+          ease: "power2.inOut",
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: text,
+            start: () => `top left-=90`,
+            start: "left right-=5%",
+      
+      
+          }
+
+
+        })
+      })
+      const menuItem = document.querySelector('.open-menu');
+
+gsap.to(menuItem, {
+  color: '#fff',
+  duration: 0.6,
+  scrollTrigger: {
+    trigger: revealTextContainer,
+    start: 'top top',
+    end: 'top top',
+    onEnterBack: () => {
+      gsap.to(menuItem, {
+        color: '#000', 
+        duration: 0.6
+      });
+    },
+    onLeave: () => {
+      gsap.to(menuItem, {
+        color: '#fff',
+        duration: 0.6
+      });
+    }
+  }
+});
+
+
+revealTextContainer.addEventListener('mouseenter', () => {
+  gsap.to(followCircle, {
+    duration: 0.1,
+    backgroundColor: '#fff',
+    ease: "power1.inOut",
+  })
+
+})
+
+const horizontalSlider2 = document.querySelector('.horizontal-sliders-2')
+
+horizontalSlider2.addEventListener('mouseenter', () => {
+
+  gsap.to(followCircle, {
+    duration: 0.1,
+    backgroundColor: '#000',
+    ease: "power1.inOut",
+  })
+})
+
+const contactContainer = document.querySelector('.contact-container')
+
+contactContainer.addEventListener('mouseenter', () => {
   
-  
+    gsap.to(followCircle, {
+      duration: 0.1,
+      backgroundColor: '#fff',
+      ease: "power1.inOut",
+    })
+})
+
+
+
+
+    
+   
+    
 
 
